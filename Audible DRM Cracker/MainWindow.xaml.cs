@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -28,6 +29,18 @@ namespace Audible_DRM_Cracker
         {
             InitializeComponent();
         }
+
+        private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
+        {
+            Assembly assembly = Assembly.GetCallingAssembly();
+
+            using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
+            using (BinaryReader r = new BinaryReader(s))
+            using (FileStream fs = new FileStream(outDirectory + "\\" + resourceName, FileMode.OpenOrCreate))
+            using (BinaryWriter w = new BinaryWriter(fs))
+                w.Write(r.ReadBytes((int)s.Length));
+        }
+
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -75,6 +88,8 @@ namespace Audible_DRM_Cracker
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
+            Extract("Audible_DRM_Cracker", Directory.GetCurrentDirectory(), "res", "ffprobe.exe");
+
             string arg = inputdisplay.Text;
 
             Process ffp = new Process();
@@ -93,6 +108,8 @@ namespace Audible_DRM_Cracker
             ffp.WaitForExit();
             ffp.Close();
 
+            File.Delete("ffprobe.exe");
+
             var regex = new Regex(@"[A-z0-9]{40}");
             string checksum = regex.Match(txtConsole.Text).Value;
 
@@ -103,6 +120,7 @@ namespace Audible_DRM_Cracker
 
         private void bytebutton_Click(object sender, RoutedEventArgs e)
         {
+
             string arghash = inputdisplay.Text;
 
             Process rcr = new Process();
@@ -120,6 +138,7 @@ namespace Audible_DRM_Cracker
 
             rcr.WaitForExit();
             rcr.Close();
+
         }
     }
 }
