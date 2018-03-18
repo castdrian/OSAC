@@ -143,14 +143,11 @@ namespace Audible_DRM_Cracker
 
             string rcdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\rcrack.exe";
 
-            var regex = new Regex(@"[A-z0-9]{40}");
-            string checksum = regex.Match(txtConsole.Text).Value;
-
-            string arghash = checksum;
+            string arghash = hashbox.Text;
 
             Process rcr = new Process();
             rcr.StartInfo.FileName = rcdir;
-            rcr.StartInfo.Arguments = @"-h" + arghash;
+            rcr.StartInfo.Arguments = @". -h " + arghash;
             rcr.StartInfo.CreateNoWindow = true;
             rcr.StartInfo.RedirectStandardOutput = true;
             rcr.StartInfo.RedirectStandardError = true;
