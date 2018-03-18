@@ -19,7 +19,7 @@
         <Button Content="Convert AAX to MP3" HorizontalAlignment="Left" Margin="393,104,0,0" VerticalAlignment="Top" Width="130" Height="50" IsEnabled="False"/>
         <Button x:Name="bytebutton" Content="Crack activation bytes" HorizontalAlignment="Left" Margin="271,69,0,0" VerticalAlignment="Top" Width="119" Height="23" IsEnabled="False" Click="bytebutton_Click"/>
         <TextBox x:Name="hashbox" HorizontalAlignment="Left" Height="23" Margin="10,118,0,0" Text="" VerticalAlignment="Top" Width="256" IsReadOnly="True"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="271,118,0,0" Text="" VerticalAlignment="Top" Width="109" IsReadOnly="True"/>
+        <TextBox x:Name="bytebox" HorizontalAlignment="Left" Height="23" Margin="271,118,0,0" Text="" VerticalAlignment="Top" Width="109" IsReadOnly="True"/>
         <Label Content="Activation Bytes:" HorizontalAlignment="Left" Margin="266,97,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

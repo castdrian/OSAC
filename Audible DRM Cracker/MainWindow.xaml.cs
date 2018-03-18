@@ -163,6 +163,14 @@ namespace Audible_DRM_Cracker
 
             Directory.Delete(resdir, true);
 
+            var regex = new Regex(@"hex:([A-z0-9]+)");
+
+            Match match = regex.Match(txtConsole.Text);
+            if (match.Success)
+            {
+                string abytes = match.Groups[1].Value;
+                bytebox.Text = abytes;
+            }
         }
     }
 }
