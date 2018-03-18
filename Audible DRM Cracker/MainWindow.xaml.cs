@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -68,6 +69,8 @@ namespace Audible_DRM_Cracker
             if (openFileDialog1.ShowDialog() == true)
                inputdisplay.Text = openFileDialog1.FileName;
 
+            hashbutton.IsEnabled = true;
+
         }
 
         private void inputdisplay_TextChanged(object sender, TextChangedEventArgs e)
@@ -84,16 +87,20 @@ namespace Audible_DRM_Cracker
 
             if (saveFileDialog1.ShowDialog() == true)
                 outputdisplay.Text = saveFileDialog1.FileName;
+
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            Extract("Audible_DRM_Cracker", Directory.GetCurrentDirectory(), "res", "ffprobe.exe");
+            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
+            Directory.CreateDirectory(resdir);
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
 
+            string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffprobe.exe";
             string arg = inputdisplay.Text;
 
             Process ffp = new Process();
-            ffp.StartInfo.FileName = "ffprobe.exe";
+            ffp.StartInfo.FileName = ffdir;
             ffp.StartInfo.Arguments = arg;
             ffp.StartInfo.CreateNoWindow = true;
             ffp.StartInfo.RedirectStandardOutput = true;
@@ -108,8 +115,6 @@ namespace Audible_DRM_Cracker
             ffp.WaitForExit();
             ffp.Close();
 
-            File.Delete("ffprobe.exe");
-
             var regex = new Regex(@"[A-z0-9]{40}");
             string checksum = regex.Match(txtConsole.Text).Value;
 
@@ -120,12 +125,32 @@ namespace Audible_DRM_Cracker
 
         private void bytebutton_Click(object sender, RoutedEventArgs e)
         {
+            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
+            Directory.CreateDirectory(resdir);
 
-            string arghash = inputdisplay.Text;
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "rcrack.exe");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "alglib1.dll");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_0_10000x789935_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_1_10000x791425_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_2_10000x790991_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_3_10000x792120_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_4_10000x790743_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_5_10000x790568_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_6_10000x791458_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_7_10000x791707_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_8_10000x790202_0.rtc");
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_9_10000x791022_0.rtc");
+
+            string rcdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\rcrack.exe";
+
+            var regex = new Regex(@"[A-z0-9]{40}");
+            string checksum = regex.Match(txtConsole.Text).Value;
+
+            string arghash = checksum;
 
             Process rcr = new Process();
-            rcr.StartInfo.FileName = "rcrack.exe";
-            rcr.StartInfo.Arguments = arghash;
+            rcr.StartInfo.FileName = rcdir;
+            rcr.StartInfo.Arguments = @"-h" + arghash;
             rcr.StartInfo.CreateNoWindow = true;
             rcr.StartInfo.RedirectStandardOutput = true;
             rcr.StartInfo.RedirectStandardError = true;
@@ -133,11 +158,13 @@ namespace Audible_DRM_Cracker
             rcr.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             rcr.Start();
 
-            string r = rcr.StandardError.ReadToEnd();
-            txtConsole.Text = r;
+            string o = rcr.StandardOutput.ReadToEnd();
+            txtConsole.Text = o;
 
             rcr.WaitForExit();
             rcr.Close();
+
+            Directory.Delete(resdir, true);
 
         }
     }

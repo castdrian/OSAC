@@ -15,7 +15,7 @@
         <Button Content="Info" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click"/>
         <Button Content="Donate" HorizontalAlignment="Left" Margin="448,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1"/>
         <Label Content="Checksum:" HorizontalAlignment="Left" Margin="5,92,0,0" VerticalAlignment="Top"/>
-        <Button Content="Get Hash" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_4"/>
+        <Button x:Name="hashbutton" Content="Get Hash" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_4" IsEnabled="False"/>
         <Button Content="Convert AAX to MP3" HorizontalAlignment="Left" Margin="393,104,0,0" VerticalAlignment="Top" Width="130" Height="50" IsEnabled="False"/>
         <Button x:Name="bytebutton" Content="Crack activation bytes" HorizontalAlignment="Left" Margin="271,69,0,0" VerticalAlignment="Top" Width="119" Height="23" IsEnabled="False" Click="bytebutton_Click"/>
         <TextBox x:Name="hashbox" HorizontalAlignment="Left" Height="23" Margin="10,118,0,0" Text="" VerticalAlignment="Top" Width="256" IsReadOnly="True"/>
