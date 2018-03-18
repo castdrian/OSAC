@@ -31,6 +31,9 @@ namespace Audible_DRM_Cracker
             InitializeComponent();
         }
 
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
         {
             Assembly assembly = Assembly.GetCallingAssembly();
@@ -59,7 +62,7 @@ namespace Audible_DRM_Cracker
         {
 
             // Displays an OpenFileDialog so the user can select a File.  
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            
             openFileDialog1.Filter = "Audible Audio Files|*.aax";
             openFileDialog1.Title = "Select an Audible Audio File";
 
@@ -80,10 +83,9 @@ namespace Audible_DRM_Cracker
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            
             saveFileDialog1.Filter = "LAME MP3 File|*.mp3";
             saveFileDialog1.Title = "Choose Output File";
-            saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.ShowDialog() == true)
                 outputdisplay.Text = saveFileDialog1.FileName;
@@ -125,6 +127,9 @@ namespace Audible_DRM_Cracker
 
         private void bytebutton_Click(object sender, RoutedEventArgs e)
         {
+            hashbutton.IsEnabled = false;
+            MessageBox.Show("This may take a while!");
+
             string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Directory.CreateDirectory(resdir);
 
@@ -171,6 +176,13 @@ namespace Audible_DRM_Cracker
                 string abytes = match.Groups[1].Value;
                 bytebox.Text = abytes;
             }
+
+            convertbutton.IsEnabled = true;
+        }
+
+        private void convertbutton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
