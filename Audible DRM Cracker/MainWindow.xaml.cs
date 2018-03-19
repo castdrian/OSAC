@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using NReco.VideoConverter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,6 +19,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MediaToolkit;
+using MediaToolkit.Model;
+using MediaToolkit.Options;
 
 namespace Audible_DRM_Cracker
 {
@@ -166,8 +170,6 @@ namespace Audible_DRM_Cracker
             rcr.WaitForExit();
             rcr.Close();
 
-            Directory.Delete(resdir, true);
-
             var regex = new Regex(@"hex:([A-z0-9]+)");
 
             Match match = regex.Match(txtConsole.Text);
@@ -182,7 +184,30 @@ namespace Audible_DRM_Cracker
 
         private void convertbutton_Click(object sender, RoutedEventArgs e)
         {
+            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
+            Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
 
+            string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffmpeg.exe";
+            string arg = @"-progress progresslog.txt -y -activation_bytes ";
+            string arg1 = @" -i ";
+            string arg2 = @" -ab 80k -vn ";
+            string abytes = bytebox.Text;
+            string arguments = arg + abytes + arg1 + openFileDialog1.FileName + arg2 + saveFileDialog1.FileName;
+
+            Process ffm = new Process();
+            ffm.StartInfo.FileName = ffdir;
+            ffm.StartInfo.Arguments = arguments;
+            ffm.StartInfo.CreateNoWindow = true;
+            ffm.StartInfo.RedirectStandardOutput = true;
+            ffm.StartInfo.RedirectStandardError = true;
+            ffm.StartInfo.UseShellExecute = false;
+            ffm.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
+            ffm.Start();
+
+            ffm.WaitForExit();
+            ffm.Close();
+
+            Directory.Delete(resdir, true);
         }
     }
 }
