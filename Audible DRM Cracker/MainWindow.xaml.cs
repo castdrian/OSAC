@@ -95,7 +95,7 @@ namespace Audible_DRM_Cracker
 
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        public async void Button_Click_4(object sender, RoutedEventArgs e)
         {
             string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Directory.CreateDirectory(resdir);
@@ -120,7 +120,7 @@ namespace Audible_DRM_Cracker
             txtConsole.CaretIndex = txtConsole.Text.Length;
             txtConsole.ScrollToEnd();
 
-            ffp.WaitForExit();
+            await Task.Run(() => ffp.WaitForExit());
             ffp.Close();
 
             var regex = new Regex(@"[A-z0-9]{40}");
@@ -131,7 +131,7 @@ namespace Audible_DRM_Cracker
             bytebutton.IsEnabled = true;
         }
 
-        private void bytebutton_Click(object sender, RoutedEventArgs e)
+        public async void bytebutton_Click(object sender, RoutedEventArgs e)
         {
             hashbutton.IsEnabled = false;
             MessageBox.Show("This may take a while!");
@@ -171,7 +171,7 @@ namespace Audible_DRM_Cracker
             txtConsole.CaretIndex = txtConsole.Text.Length;
             txtConsole.ScrollToEnd();
 
-            rcr.WaitForExit();
+            await Task.Run(() => rcr.WaitForExit());
             rcr.Close();
 
             var regex = new Regex(@"hex:([A-z0-9]+)");
@@ -233,28 +233,16 @@ namespace Audible_DRM_Cracker
             ffm.EnableRaisingEvents = true;
             Console.SetOut(new TextBoxWriter(txtConsole));
             ffm.ErrorDataReceived += (s, ea) => { Console.WriteLine($"{ea.Data}"); };
+            txtConsole.TextChanged += (s, eb) => txtConsole.ScrollToEnd();
             ffm.Start();
-            ffm.BeginErrorReadLine();  
-
-            txtConsole.Focus();
-            txtConsole.CaretIndex = txtConsole.Text.Length;
-            txtConsole.ScrollToEnd();
+            ffm.BeginErrorReadLine();
 
             await Task.Run(() => ffm.WaitForExit());
-
             ffm.Close();
+
             MessageBox.Show("Conversion Complete!");
 
             Directory.Delete(resdir, true);
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            Console.SetOut(new TextBoxWriter(txtConsole));
-            Console.WriteLine("Hello, this Button is testing the redirection of the Console output.");
-            txtConsole.Focus();
-            txtConsole.CaretIndex = txtConsole.Text.Length;
-            txtConsole.ScrollToEnd();
         }
     }
 }
