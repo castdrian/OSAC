@@ -38,6 +38,7 @@ namespace Audible_DRM_Cracker
 
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
         SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+        System.Windows.Threading.DispatcherTimer scrolltimer = new System.Windows.Threading.DispatcherTimer();
 
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
         {
@@ -116,11 +117,10 @@ namespace Audible_DRM_Cracker
 
             string r = ffp.StandardError.ReadToEnd();
             txtConsole.AppendText(r);
-            txtConsole.Focus();
-            txtConsole.CaretIndex = txtConsole.Text.Length;
-            txtConsole.ScrollToEnd();
 
             await Task.Run(() => ffp.WaitForExit());
+            txtConsole.ScrollToEnd();
+
             ffp.Close();
 
             var regex = new Regex(@"[A-z0-9]{40}");
@@ -167,11 +167,9 @@ namespace Audible_DRM_Cracker
 
             string o = rcr.StandardOutput.ReadToEnd();
             txtConsole.AppendText(o);
-            txtConsole.Focus();
-            txtConsole.CaretIndex = txtConsole.Text.Length;
-            txtConsole.ScrollToEnd();
 
             await Task.Run(() => rcr.WaitForExit());
+            txtConsole.ScrollToEnd();
             rcr.Close();
 
             var regex = new Regex(@"hex:([A-z0-9]+)");
@@ -233,16 +231,27 @@ namespace Audible_DRM_Cracker
             ffm.EnableRaisingEvents = true;
             Console.SetOut(new TextBoxWriter(txtConsole));
             ffm.ErrorDataReceived += (s, ea) => { Console.WriteLine($"{ea.Data}"); };
-            txtConsole.TextChanged += (s, eb) => txtConsole.ScrollToEnd();
+
+            scrolltimer.Tick += new EventHandler(scrolltimer_Tick);
+            scrolltimer.Interval = new TimeSpan(0,0,1);
+
             ffm.Start();
             ffm.BeginErrorReadLine();
+            scrolltimer.Start();
 
             await Task.Run(() => ffm.WaitForExit());
+
             ffm.Close();
 
             MessageBox.Show("Conversion Complete!");
 
             Directory.Delete(resdir, true);
+        }
+
+        private void scrolltimer_Tick(object sender, EventArgs e)
+        {
+            // code goes here 
+            txtConsole.ScrollToEnd();
         }
     }
 }
