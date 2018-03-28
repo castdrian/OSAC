@@ -11,7 +11,6 @@
         <Button Content="Output .mp3" HorizontalAlignment="Left" Margin="315,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_3"/>
         <TextBox x:Name="inputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="" VerticalAlignment="Top" Width="300" TextChanged="inputdisplay_TextChanged"/>
         <TextBox x:Name="outputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" Text="" VerticalAlignment="Top" Width="300"/>
-        <TextBox x:Name="txtConsole" Height="80" Margin="10,179,10,0" Text="" VerticalAlignment="Top" Background="Black" Foreground="White" IsReadOnly="True"/>
         <Button Content="Info" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click"/>
         <Button Content="Donate" HorizontalAlignment="Left" Margin="448,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1"/>
         <Label Content="Checksum:" HorizontalAlignment="Left" Margin="5,92,0,0" VerticalAlignment="Top"/>
@@ -22,5 +21,7 @@
         <TextBox x:Name="bytebox" HorizontalAlignment="Left" Height="23" Margin="271,118,0,0" Text="" VerticalAlignment="Top" Width="109" IsReadOnly="True"/>
         <Label Content="Activation Bytes:" HorizontalAlignment="Left" Margin="266,92,0,0" VerticalAlignment="Top"/>
         <ProgressBar HorizontalAlignment="Left" Height="15" Margin="10,159,0,0" VerticalAlignment="Top" Width="513"/>
+        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="80" Margin="10,179,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="186,92,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_5"/>
     </Grid>
 </Window>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using NReco.VideoConverter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,9 +18,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MediaToolkit;
-using MediaToolkit.Model;
-using MediaToolkit.Options;
+using System.Timers;
+using System.ComponentModel;
 
 namespace Audible_DRM_Cracker
 {
@@ -30,9 +28,12 @@ namespace Audible_DRM_Cracker
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -48,8 +49,6 @@ namespace Audible_DRM_Cracker
             using (BinaryWriter w = new BinaryWriter(fs))
                 w.Write(r.ReadBytes((int)s.Length));
         }
-
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -112,11 +111,14 @@ namespace Audible_DRM_Cracker
             ffp.StartInfo.RedirectStandardOutput = true;
             ffp.StartInfo.RedirectStandardError = true;
             ffp.StartInfo.UseShellExecute = false;
-            ffp.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory(); 
+            ffp.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             ffp.Start();
 
             string r = ffp.StandardError.ReadToEnd();
-            txtConsole.Text = r;
+            txtConsole.AppendText(r);
+            txtConsole.Focus();
+            txtConsole.CaretIndex = txtConsole.Text.Length;
+            txtConsole.ScrollToEnd();
 
             ffp.WaitForExit();
             ffp.Close();
@@ -124,7 +126,7 @@ namespace Audible_DRM_Cracker
             var regex = new Regex(@"[A-z0-9]{40}");
             string checksum = regex.Match(txtConsole.Text).Value;
 
-            hashbox.Text = checksum;
+            hashbox.AppendText(checksum);
 
             bytebutton.IsEnabled = true;
         }
@@ -159,13 +161,15 @@ namespace Audible_DRM_Cracker
             rcr.StartInfo.Arguments = @". -h " + arghash;
             rcr.StartInfo.CreateNoWindow = true;
             rcr.StartInfo.RedirectStandardOutput = true;
-            rcr.StartInfo.RedirectStandardError = true;
             rcr.StartInfo.UseShellExecute = false;
             rcr.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             rcr.Start();
 
             string o = rcr.StandardOutput.ReadToEnd();
-            txtConsole.Text = o;
+            txtConsole.AppendText(o);
+            txtConsole.Focus();
+            txtConsole.CaretIndex = txtConsole.Text.Length;
+            txtConsole.ScrollToEnd();
 
             rcr.WaitForExit();
             rcr.Close();
@@ -178,36 +182,79 @@ namespace Audible_DRM_Cracker
                 string abytes = match.Groups[1].Value;
                 bytebox.Text = abytes;
             }
-
+            
             convertbutton.IsEnabled = true;
         }
-
-        private void convertbutton_Click(object sender, RoutedEventArgs e)
+        
+        public class TextBoxWriter : TextWriter
         {
+            TextBox _output = null;
+
+            public TextBoxWriter(TextBox output)
+            {
+                _output = output;
+            }
+
+            public override void Write(char value)
+            {
+                base.Write(value);
+                _output.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    _output.AppendText(value.ToString());
+                }));
+            }
+
+            public override Encoding Encoding
+            {
+                get { return System.Text.Encoding.UTF8; }
+            }
+        }
+
+        public async void convertbutton_Click(object sender, RoutedEventArgs e)
+        {
+
             string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
 
             string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffmpeg.exe";
-            string arg = @"-progress progresslog.txt -y -activation_bytes ";
+            string arg = @"-y -activation_bytes ";
             string arg1 = @" -i ";
             string arg2 = @" -ab 80k -vn ";
             string abytes = bytebox.Text;
             string arguments = arg + abytes + arg1 + openFileDialog1.FileName + arg2 + saveFileDialog1.FileName;
-
+           
             Process ffm = new Process();
             ffm.StartInfo.FileName = ffdir;
             ffm.StartInfo.Arguments = arguments;
             ffm.StartInfo.CreateNoWindow = true;
-            ffm.StartInfo.RedirectStandardOutput = true;
             ffm.StartInfo.RedirectStandardError = true;
             ffm.StartInfo.UseShellExecute = false;
             ffm.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
+            ffm.EnableRaisingEvents = true;
+            Console.SetOut(new TextBoxWriter(txtConsole));
+            ffm.ErrorDataReceived += (s, ea) => { Console.WriteLine($"{ea.Data}"); };
             ffm.Start();
+            ffm.BeginErrorReadLine();  
 
-            ffm.WaitForExit();
+            txtConsole.Focus();
+            txtConsole.CaretIndex = txtConsole.Text.Length;
+            txtConsole.ScrollToEnd();
+
+            await Task.Run(() => ffm.WaitForExit());
+
             ffm.Close();
+            MessageBox.Show("Conversion Complete!");
 
             Directory.Delete(resdir, true);
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Console.SetOut(new TextBoxWriter(txtConsole));
+            Console.WriteLine("Hello, this Button is testing the redirection of the Console output.");
+            txtConsole.Focus();
+            txtConsole.CaretIndex = txtConsole.Text.Length;
+            txtConsole.ScrollToEnd();
         }
     }
 }
