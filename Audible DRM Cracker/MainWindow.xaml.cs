@@ -210,6 +210,11 @@ namespace Audible_DRM_Cracker
 
         public async void convertbutton_Click(object sender, RoutedEventArgs e)
         {
+            inpbutton.IsEnabled = false;
+            outpbutton.IsEnabled = false;
+            hashbutton.IsEnabled = false;
+            bytebutton.IsEnabled = false;
+            convertbutton.IsEnabled = false;
 
             string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
@@ -242,6 +247,12 @@ namespace Audible_DRM_Cracker
             await Task.Run(() => ffm.WaitForExit());
 
             ffm.Close();
+
+            inpbutton.IsEnabled = true;
+            outpbutton.IsEnabled = true;
+            hashbutton.IsEnabled = true;
+            bytebutton.IsEnabled = true;
+            convertbutton.IsEnabled = true;
 
             MessageBox.Show("Conversion Complete!");
 

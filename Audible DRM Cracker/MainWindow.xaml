@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Audible DRM Cracker" Height="300" Width="550" WindowStartupLocation="CenterScreen" Icon="ADC.ico">
     <Grid>
-        <Button Content="Choose .aax" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_2"/>
-        <Button Content="Output .mp3" HorizontalAlignment="Left" Margin="315,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_3"/>
+        <Button x:Name="inpbutton" Content="Choose .aax" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_2"/>
+        <Button x:Name="outpbutton" Content="Output .mp3" HorizontalAlignment="Left" Margin="315,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_3"/>
         <TextBox x:Name="inputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="" VerticalAlignment="Top" Width="300" TextChanged="inputdisplay_TextChanged"/>
         <TextBox x:Name="outputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" Text="" VerticalAlignment="Top" Width="300"/>
         <Button Content="Info" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click"/>
@@ -20,7 +20,6 @@
         <TextBox x:Name="hashbox" HorizontalAlignment="Left" Height="23" Margin="10,118,0,0" Text="" VerticalAlignment="Top" Width="256" IsReadOnly="True"/>
         <TextBox x:Name="bytebox" HorizontalAlignment="Left" Height="23" Margin="271,118,0,0" Text="" VerticalAlignment="Top" Width="109" IsReadOnly="True"/>
         <Label Content="Activation Bytes:" HorizontalAlignment="Left" Margin="266,92,0,0" VerticalAlignment="Top"/>
-        <ProgressBar HorizontalAlignment="Left" Height="15" Margin="10,159,0,0" VerticalAlignment="Top" Width="513"/>
-        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="80" Margin="10,179,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True"/>
+        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="100" Margin="10,159,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True"/>
     </Grid>
 </Window>
