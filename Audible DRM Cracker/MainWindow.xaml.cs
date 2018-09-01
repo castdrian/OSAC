@@ -39,6 +39,11 @@ namespace Audible_DRM_Cracker
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
         SaveFileDialog saveFileDialog1 = new SaveFileDialog();
         System.Windows.Threading.DispatcherTimer scrolltimer = new System.Windows.Threading.DispatcherTimer();
+        System.Windows.Threading.DispatcherTimer progresstimer = new System.Windows.Threading.DispatcherTimer();
+        public string abytes;
+        public string checksum;
+        public string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
+        public string ftype;
 
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
         {
@@ -51,9 +56,33 @@ namespace Audible_DRM_Cracker
                 w.Write(r.ReadBytes((int)s.Length));
         }
 
+        public class TextBoxWriter : TextWriter
+        {
+            TextBox _output = null;
+
+            public TextBoxWriter(TextBox output)
+            {
+                _output = output;
+            }
+
+            public override void Write(char value)
+            {
+                base.Write(value);
+                _output.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    _output.AppendText(value.ToString());
+                }));
+            }
+
+            public override Encoding Encoding
+            {
+                get { return System.Text.Encoding.UTF8; }
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Audible DRM Cracker" + "\nVersion: 1.0" + "\nDeveloped by: adrifcastr" +
+            MessageBox.Show("Audible DRM Cracker" + "\nVersion: 2.0" + "\nDeveloped by: adrifcastr" +
                 "\n" + "\nThanks to:" + "\nEvan#8119" + "\nSylveon#8666");
         }
 
@@ -65,40 +94,70 @@ namespace Audible_DRM_Cracker
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
-            // Displays an OpenFileDialog so the user can select a File.  
-            
             openFileDialog1.Filter = "Audible Audio Files|*.aax";
             openFileDialog1.Title = "Select an Audible Audio File";
 
-            // Show the Dialog.  
-            // If the user clicked OK in the dialog and  
-            // a .AAX file was selected, open it.  
             if (openFileDialog1.ShowDialog() == true)
-               inputdisplay.Text = openFileDialog1.FileName;
+                inputdisplay.Text = openFileDialog1.FileName;
 
-            hashbutton.IsEnabled = true;
+            checkspaces();
 
-        }
-
-        private void inputdisplay_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            statuslbl.Content = "";
 
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            
-            saveFileDialog1.Filter = "LAME MP3 File|*.mp3";
+
+            saveFileDialog1.Filter = ftype;
             saveFileDialog1.Title = "Choose Output File";
 
             if (saveFileDialog1.ShowDialog() == true)
                 outputdisplay.Text = saveFileDialog1.FileName;
 
+            checkspaces();
+
+            convertbutton.IsEnabled = true;
         }
 
-        public async void Button_Click_4(object sender, RoutedEventArgs e)
+        public void checkspaces()
         {
-            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
+            Regex Check1 = new Regex(@"\s");
+            string inputfile = inputdisplay.Text;
+
+            Regex Check2 = new Regex(@"\s");
+            string outputfile = outputdisplay.Text;
+
+            if (Check1.IsMatch(inputfile) || Check2.IsMatch(outputfile))
+            {
+                MessageBox.Show("One or more filenames contain whitespaces." + "\nThe Conversion will probably fail.");
+            }
+        }
+
+        public void startbar()
+        {
+            pbar.IsIndeterminate = true;
+        }
+
+        public void stopbar()
+        {
+            pbar.IsIndeterminate = false;
+        }
+
+
+        public async void gethash()
+        {
+            startbar();
+
+            statuslbl.Content = "Getting File Hash...";
+
+            inpbutton.IsEnabled = false;
+            outpbutton.IsEnabled = false;
+
+            convertbutton.IsEnabled = false;
+
+            dsrb();
+
             Directory.CreateDirectory(resdir);
             Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
 
@@ -124,19 +183,15 @@ namespace Audible_DRM_Cracker
             ffp.Close();
 
             var regex = new Regex(@"[A-z0-9]{40}");
-            string checksum = regex.Match(txtConsole.Text).Value;
+            checksum = regex.Match(txtConsole.Text).Value;
 
-            hashbox.AppendText(checksum);
+            crackbytes();
+        }       
 
-            bytebutton.IsEnabled = true;
-        }
-
-        public async void bytebutton_Click(object sender, RoutedEventArgs e)
+        public async void crackbytes()
         {
-            hashbutton.IsEnabled = false;
-            MessageBox.Show("This may take a while!");
+            statuslbl.Content = "Cracking Activation Bytes...";
 
-            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Directory.CreateDirectory(resdir);
 
             Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "rcrack.exe");
@@ -154,11 +209,10 @@ namespace Audible_DRM_Cracker
 
             string rcdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\rcrack.exe";
 
-            string arghash = hashbox.Text;
 
             Process rcr = new Process();
             rcr.StartInfo.FileName = rcdir;
-            rcr.StartInfo.Arguments = @". -h " + arghash;
+            rcr.StartInfo.Arguments = @". -h " + checksum;
             rcr.StartInfo.CreateNoWindow = true;
             rcr.StartInfo.RedirectStandardOutput = true;
             rcr.StartInfo.UseShellExecute = false;
@@ -177,55 +231,25 @@ namespace Audible_DRM_Cracker
             Match match = regex.Match(txtConsole.Text);
             if (match.Success)
             {
-                string abytes = match.Groups[1].Value;
-                bytebox.Text = abytes;
+                abytes = match.Groups[1].Value;
             }
-            
-            convertbutton.IsEnabled = true;
+
+            carmdrm();
         }
         
-        public class TextBoxWriter : TextWriter
+        public async void carmdrm()
         {
-            TextBox _output = null;
+            statuslbl.Content = "Converting File...";
 
-            public TextBoxWriter(TextBox output)
-            {
-                _output = output;
-            }
-
-            public override void Write(char value)
-            {
-                base.Write(value);
-                _output.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    _output.AppendText(value.ToString());
-                }));
-            }
-
-            public override Encoding Encoding
-            {
-                get { return System.Text.Encoding.UTF8; }
-            }
-        }
-
-        public async void convertbutton_Click(object sender, RoutedEventArgs e)
-        {
-            inpbutton.IsEnabled = false;
-            outpbutton.IsEnabled = false;
-            hashbutton.IsEnabled = false;
-            bytebutton.IsEnabled = false;
-            convertbutton.IsEnabled = false;
-
-            string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
             Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
 
             string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffmpeg.exe";
             string arg = @"-y -activation_bytes ";
             string arg1 = @" -i ";
-            string arg2 = @" -ab 80k -vn ";
-            string abytes = bytebox.Text;
-            string arguments = arg + abytes + arg1 + openFileDialog1.FileName + arg2 + saveFileDialog1.FileName;
-           
+            string arg2 = @" -ab "; 
+            string arg3 = @"k -vn ";
+            string arguments = arg + abytes + arg1 + openFileDialog1.FileName + arg2 + qlabel.Content + arg3 + saveFileDialog1.FileName;
+
             Process ffm = new Process();
             ffm.StartInfo.FileName = ffdir;
             ffm.StartInfo.Arguments = arguments;
@@ -238,9 +262,10 @@ namespace Audible_DRM_Cracker
             ffm.ErrorDataReceived += (s, ea) => { Console.WriteLine($"{ea.Data}"); };
 
             scrolltimer.Tick += new EventHandler(scrolltimer_Tick);
-            scrolltimer.Interval = new TimeSpan(0,0,1);
+            scrolltimer.Interval = new TimeSpan(0, 0, 1);
 
             ffm.Start();
+
             ffm.BeginErrorReadLine();
             scrolltimer.Start();
 
@@ -249,20 +274,80 @@ namespace Audible_DRM_Cracker
             ffm.Close();
 
             inpbutton.IsEnabled = true;
-            outpbutton.IsEnabled = true;
-            hashbutton.IsEnabled = true;
-            bytebutton.IsEnabled = true;
+
             convertbutton.IsEnabled = true;
 
-            MessageBox.Show("Conversion Complete!");
+            enrb();
+
+            statuslbl.Content ="Conversion Complete!";
+
+            stopbar();
 
             Directory.Delete(resdir, true);
         }
 
+        public void convertbutton_Click(object sender, RoutedEventArgs e)
+        {
+            gethash();
+        }
+
         private void scrolltimer_Tick(object sender, EventArgs e)
         {
-            // code goes here 
             txtConsole.ScrollToEnd();
+
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            enbslst();
+            outpbutton.IsEnabled = true;
+            ftype = "LAME MP3 Audio File|*.mp3";
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            enbslst();
+            outpbutton.IsEnabled = true;
+            ftype = "AAC M4A Audio File|*.m4a";
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            dsslst();
+            outpbutton.IsEnabled = true;
+            ftype = "FLAC Audio File|*.flac";
+        }
+
+        public void enbslst()
+        {
+            sqlbl.IsEnabled = true;
+            curqlbl.IsEnabled = true;
+            qlabel.IsEnabled = true;
+            kblbl.IsEnabled = true;
+            qslider.IsEnabled = true;
+        }
+
+        public void dsslst()
+        {
+            sqlbl.IsEnabled = false;
+            curqlbl.IsEnabled = false;
+            qlabel.IsEnabled = false;
+            kblbl.IsEnabled = false;
+            qslider.IsEnabled = false;
+        }
+
+        public void enrb()
+        {
+            rmp3.IsEnabled = true;
+            raac.IsEnabled = true;
+            rflac.IsEnabled = true;
+        }
+
+        public void dsrb()
+        {
+            rmp3.IsEnabled = false;
+            raac.IsEnabled = false;
+            rflac.IsEnabled = false;
         }
     }
 }
