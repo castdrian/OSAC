@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,16 +9,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Timers;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace Audible_DRM_Cracker
 {
@@ -28,8 +20,6 @@ namespace Audible_DRM_Cracker
   /// </summary>
   public partial class MainWindow : Window
   {
-    OpenFileDialog openFileDialog1 = new OpenFileDialog();
-    SaveFileDialog saveFileDialog1 = new SaveFileDialog();
     System.Windows.Threading.DispatcherTimer scrolltimer = new System.Windows.Threading.DispatcherTimer();
     System.Windows.Threading.DispatcherTimer progresstimer = new System.Windows.Threading.DispatcherTimer();
     public string abytes;
@@ -85,29 +75,37 @@ namespace Audible_DRM_Cracker
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-      System.Diagnostics.Process.Start("https://www.paypal.me/adrifcastr");
+      Process.Start("https://www.paypal.me/adrifcastr");
     }
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
-
-      openFileDialog1.Filter = "Audible Audio Files|*.aax";
-      openFileDialog1.Title = "Select an Audible Audio File";
-
-      if (openFileDialog1.ShowDialog() == true) { inputdisplay.Text = openFileDialog1.FileName; }
-
+      using (var ofd = new System.Windows.Forms.OpenFileDialog())
+      {
+        ofd.Filter = "Audible Audio Files|*.aax";
+        ofd.Title = "Select an Audible Audio File";
+        if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        {
+          inputdisplay.Text = ofd.FileName; 
+          outputdisplay.Text = Path.GetDirectoryName(ofd.FileName);
+          convertbutton.IsEnabled = true;
+        }
+      }
       statuslbl.Content = "";
     }
 
     private void Button_Click_3(object sender, RoutedEventArgs e)
     {
-
-      saveFileDialog1.Filter = ftype;
-      saveFileDialog1.Title = "Choose Output File";
-
-      if (saveFileDialog1.ShowDialog() == true) { outputdisplay.Text = saveFileDialog1.FileName; }
-
-      convertbutton.IsEnabled = true;
+      using (var fbd = new System.Windows.Forms.FolderBrowserDialog())
+      {
+        var result = fbd.ShowDialog(); 
+        if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+        {
+          outputdisplay.Text = fbd.SelectedPath;
+          convertbutton.IsEnabled = true;
+        }
+      } 
+      
     }
     [Obsolete("method is no longer needed", true)]
     public void checkspaces()
@@ -133,7 +131,6 @@ namespace Audible_DRM_Cracker
     {
       pbar.IsIndeterminate = false;
     }
-
 
     public async void gethash()
     {
@@ -222,8 +219,7 @@ namespace Audible_DRM_Cracker
       if (match.Success)
       {
         abytes = match.Groups[1].Value;
-      }
-
+      } 
       carmdrm();
     }
 
@@ -238,7 +234,8 @@ namespace Audible_DRM_Cracker
       string arg1 = @" -i ";
       string arg2 = @" -ab ";
       string arg3 = @"k -vn ";
-      string arguments = string.Format("{0}{1}{2}\"{3}\"{4}{5}{6}\"{7}\"", arg, abytes, arg1, inputdisplay.Text, arg2, qlabel.Content, arg3, outputdisplay.Text);
+      string fileout = Path.Combine(outputdisplay.Text, Path.GetFileNameWithoutExtension(inputdisplay.Text) + GetOutExtension());
+      string arguments = string.Format("{0}{1}{2}\"{3}\"{4}{5}{6}\"{7}\"", arg, abytes, arg1, inputdisplay.Text, arg2, qlabel.Content, arg3, fileout);
 
       Process ffm = new Process();
       ffm.StartInfo.FileName = ffdir;
@@ -282,6 +279,18 @@ namespace Audible_DRM_Cracker
       Directory.Delete(resdir, true);
     }
 
+    private string GetOutExtension()
+    {
+      if (rmp3.IsChecked.Value) return ".mp3";
+      else if (raac.IsChecked.Value) return ".raac";
+      else if (rflac.IsChecked.Value) return ".rflac";
+      else //default
+      {
+        rmp3.IsChecked = true; 
+        return ".mp3";
+      }
+    }
+
     public void convertbutton_Click(object sender, RoutedEventArgs e)
     {
       gethash();
@@ -290,7 +299,6 @@ namespace Audible_DRM_Cracker
     private void scrolltimer_Tick(object sender, EventArgs e)
     {
       txtConsole.ScrollToEnd();
-
     }
 
     private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -318,8 +326,7 @@ namespace Audible_DRM_Cracker
     {
       sqlbl.IsEnabled = true;
       curqlbl.IsEnabled = true;
-      qlabel.IsEnabled = true;
-      kblbl.IsEnabled = true;
+      qlabel.IsEnabled = true; 
       qslider.IsEnabled = true;
     }
 
@@ -327,8 +334,7 @@ namespace Audible_DRM_Cracker
     {
       sqlbl.IsEnabled = false;
       curqlbl.IsEnabled = false;
-      qlabel.IsEnabled = false;
-      kblbl.IsEnabled = false;
+      qlabel.IsEnabled = false; 
       qslider.IsEnabled = false;
     }
 
