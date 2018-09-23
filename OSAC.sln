@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audible DRM Cracker", "Audible DRM Cracker\Audible DRM Cracker.csproj", "{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSAC", "OSAC\OSAC.csproj", "{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
