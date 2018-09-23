@@ -25,7 +25,6 @@ namespace Audible_DRM_Cracker
     public string abytes;
     public string checksum;
     public string resdir = AppDomain.CurrentDomain.BaseDirectory + "\\res";
-    public string ftype;
 
     public MainWindow()
     {
@@ -130,6 +129,7 @@ namespace Audible_DRM_Cracker
       convertbutton.IsEnabled = false;
 
       dsrb();
+      dsslst();
 
       Directory.CreateDirectory(resdir);
       Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
@@ -257,6 +257,7 @@ namespace Audible_DRM_Cracker
       scrolltimer.Tick -= new EventHandler(scrolltimer_Tick);
 
       enrb();
+      enbslst();
 
       statuslbl.Content = "Conversion Complete!";
 
@@ -270,7 +271,7 @@ namespace Audible_DRM_Cracker
       if (rmp3.IsChecked.Value) return ".mp3";
       else if (raac.IsChecked.Value) return ".m4a";
       else if (rflac.IsChecked.Value) return ".flac";
-      else //default
+      else
       {
         rmp3.IsChecked = true; 
         return ".mp3";
@@ -291,21 +292,18 @@ namespace Audible_DRM_Cracker
     {
       enbslst();
       outpbutton.IsEnabled = true;
-      ftype = "LAME MP3 Audio File|*.mp3";
     }
 
     private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
     {
       enbslst();
       outpbutton.IsEnabled = true;
-      ftype = "AAC M4A Audio File|*.m4a";
     }
 
     private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
     {
       dsslst();
       outpbutton.IsEnabled = true;
-      ftype = "FLAC Audio File|*.flac";
     }
 
     public void enbslst()
