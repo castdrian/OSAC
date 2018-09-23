@@ -70,7 +70,7 @@ namespace Audible_DRM_Cracker
     private void Button_Click(object sender, RoutedEventArgs e)
     {
       MessageBox.Show("Audible DRM Cracker" + "\nVersion: 2.0" + "\nDeveloped by: adrifcastr" +
-          "\n" + "\nThanks to:" + "\nEvan#8119" + "\nSylveon#8666");
+          "\n" + "\nThanks to:" + "\nEvan#8119" + "\nSylveon#8666" + "\njbodan");
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -106,20 +106,6 @@ namespace Audible_DRM_Cracker
         }
       } 
       
-    }
-    [Obsolete("method is no longer needed", true)]
-    public void checkspaces()
-    {
-      Regex Check1 = new Regex(@"\s");
-      string inputfile = inputdisplay.Text;
-
-      Regex Check2 = new Regex(@"\s");
-      string outputfile = outputdisplay.Text;
-
-      if (Check1.IsMatch(inputfile) || Check2.IsMatch(outputfile))
-      {
-        MessageBox.Show("One or more filenames contain whitespaces." + "\nThe Conversion will probably fail.");
-      }
     }
 
     public void startbar()
@@ -235,7 +221,7 @@ namespace Audible_DRM_Cracker
       string arg2 = @" -ab ";
       string arg3 = @"k -vn ";
       string fileout = Path.Combine(outputdisplay.Text, Path.GetFileNameWithoutExtension(inputdisplay.Text) + GetOutExtension());
-      string arguments = string.Format("{0}{1}{2}\"{3}\"{4}{5}{6}\"{7}\"", arg, abytes, arg1, inputdisplay.Text, arg2, qlabel.Content, arg3, fileout);
+      string arguments =  arg + abytes + arg1 + inputdisplay.Text + arg2 + qlabel.Content + arg3 + fileout;
 
       Process ffm = new Process();
       ffm.StartInfo.FileName = ffdir;
@@ -282,8 +268,8 @@ namespace Audible_DRM_Cracker
     private string GetOutExtension()
     {
       if (rmp3.IsChecked.Value) return ".mp3";
-      else if (raac.IsChecked.Value) return ".raac";
-      else if (rflac.IsChecked.Value) return ".rflac";
+      else if (raac.IsChecked.Value) return ".m4a";
+      else if (rflac.IsChecked.Value) return ".flac";
       else //default
       {
         rmp3.IsChecked = true; 
