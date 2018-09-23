@@ -8,7 +8,7 @@
         Title="Audible DRM Cracker" Height="300" Width="550" WindowStartupLocation="CenterScreen" Icon="ADC.ico" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="inpbutton" Content="Choose .aax" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_2"/>
-        <Button x:Name="outpbutton" Content="Output File" HorizontalAlignment="Left" Margin="315,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_3" IsEnabled="False"/>
+        <Button x:Name="outpbutton" Content="Set Extract Folder" HorizontalAlignment="Left" Margin="315,38,0,0" VerticalAlignment="Top" Width="99" Height="23" Click="Button_Click_3" IsEnabled="False"/>
         <TextBox x:Name="inputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="" VerticalAlignment="Top" Width="300"/>
         <TextBox x:Name="outputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" Text="" VerticalAlignment="Top" Width="300"/>
         <Button Content="Info" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click"/>
@@ -16,11 +16,11 @@
         <Button x:Name="convertbutton" Content="Remove AAX DRM" HorizontalAlignment="Left" Margin="315,68,0,0" VerticalAlignment="Top" Width="208" Height="50" IsEnabled="False" Click="convertbutton_Click"/>
         <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="79" Margin="10,180,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True"/>
         <ProgressBar x:Name="pbar" HorizontalAlignment="Left" Height="25" Margin="10,150,0,0" VerticalAlignment="Top" Width="513"/>
-        <Slider x:Name="qslider" HorizontalAlignment="Left" Margin="185,96,0,0" VerticalAlignment="Top" Width="125" Maximum="320" Minimum="32" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Ticks="32,80,96,128,160,192,256,320" Value="80" IsEnabled="False"/>
+        <Slider x:Name="qslider" HorizontalAlignment="Left" Margin="185,96,0,0" VerticalAlignment="Top" Width="125" Maximum="320" Minimum="32" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Ticks="32,80,96,128,160,192,256,320" Value="80" />
         <Label x:Name="sqlbl" Content="Set MP3/AAC Quality:" HorizontalAlignment="Left" Margin="185,62,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <Label x:Name="curqlbl" Content="Current:" HorizontalAlignment="Left" Margin="185,114,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <Label x:Name="qlabel" Content="{Binding ElementName=qslider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="237,114,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-        <RadioButton x:Name="rmp3" Content="LAME MP3" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+        <RadioButton x:Name="rmp3" Content="LAME MP3" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
         <RadioButton x:Name="raac" Content="AAC AUDIO" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
         <RadioButton x:Name="rflac" Content="FLAC" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2"/>
         <Label x:Name="kblbl" Content="kbit/s" HorizontalAlignment="Left" Margin="260,114,0,0" VerticalAlignment="Top" IsEnabled="False"/>
