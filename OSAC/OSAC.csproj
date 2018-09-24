@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ADC.ico</ApplicationIcon>
+    <ApplicationIcon>OSAC.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -109,13 +109,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ADC.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="res\alglib1.dll" />
     <EmbeddedResource Include="res\ffmpeg.exe" />
     <EmbeddedResource Include="res\ffprobe.exe" />
     <EmbeddedResource Include="res\rcrack.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OSAC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
