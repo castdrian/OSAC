@@ -18,7 +18,7 @@ OSAC's features are as follows:
 
 * Simple and easy to use.
 
-![Screenshot](https://raw.githubusercontent.com/adrifcastr/OSAC/master/OSAC/OSAC.png)
+![OSACScreenshot](https://raw.githubusercontent.com/adrifcastr/OSAC/master/OSAC/OSAC.png)
 
 Donations
 =====
