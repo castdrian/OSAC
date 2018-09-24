@@ -32,4 +32,4 @@ In no particular order, I credit the following for their invaluable contribution
 
 * __Evan#8119__ for help w/ the TextBox console redirection.
 * __Sylveon#8666__ for help w/ the TextBox console redirection.
-* __jbodan__ for Pull Request [#4]([Paypal.me](https://www.paypal.me/adrifcastr)
+* __jbodan__ for Pull Request [#4](https://github.com/adrifcastr/OSAC/pull/4)
