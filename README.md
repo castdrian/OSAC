@@ -17,7 +17,8 @@ OSAC's features are as follows:
 * Adjustable quality slider for MP3 and M4B (FLAC get's encoded @ 2600 kbit/s so prepare for huge file sizes).
 
 * Simple and easy to use.
-![Screenshot](blob:https://imgur.com/73630012-a8ab-4db5-8302-266c7e51741e)
+
+![Screenshot](https://raw.githubusercontent.com/adrifcastr/OSAC/master/OSAC/OSAC.png)
 
 Donations
 =====
