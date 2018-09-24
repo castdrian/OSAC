@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
+using AutoUpdaterDotNET;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Timers;
-using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace OSAC
 {
-  /// <summary>
-  /// Interaktionslogik für MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow : Window
+    /// <summary>
+    /// Interaktionslogik für MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
   {
     System.Windows.Threading.DispatcherTimer scrolltimer = new System.Windows.Threading.DispatcherTimer();
     System.Windows.Threading.DispatcherTimer progresstimer = new System.Windows.Threading.DispatcherTimer();
@@ -28,7 +24,13 @@ namespace OSAC
 
     public MainWindow()
     {
-      InitializeComponent();
+      InitializeComponent();       
+      AutoUpdater.Start("https://raw.githubusercontent.com/adrifcastr/OSAC/master/OSAC/autoupdate.xml");
+      AutoUpdater.ShowSkipButton = false;
+      AutoUpdater.ShowRemindLaterButton = false;
+      AutoUpdater.Mandatory = true;
+      AutoUpdater.ReportErrors = false;
+      AutoUpdater.RunUpdateAsAdmin = false;
     }
 
     private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
@@ -64,11 +66,11 @@ namespace OSAC
       {
         get { return System.Text.Encoding.UTF8; }
       }
-    }
+    }    
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-      MessageBox.Show("Audible DRM Cracker" + "\nVersion: 2.0" + "\nDeveloped by: adrifcastr" +
+      MessageBox.Show("OSAC" + "\nVersion: 3.0" + "\nDeveloped by: adrifcastr" +
           "\n" + "\nThanks to:" + "\nEvan#8119" + "\nSylveon#8666" + "\njbodan");
     }
 
@@ -132,7 +134,7 @@ namespace OSAC
       dsslst();
 
       Directory.CreateDirectory(resdir);
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
 
       string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffprobe.exe";
       string arg = string.Format("\"{0}\"", inputdisplay.Text);
@@ -167,18 +169,18 @@ namespace OSAC
 
       Directory.CreateDirectory(resdir);
 
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "rcrack.exe");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "alglib1.dll");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_0_10000x789935_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_1_10000x791425_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_2_10000x790991_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_3_10000x792120_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_4_10000x790743_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_5_10000x790568_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_6_10000x791458_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_7_10000x791707_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_8_10000x790202_0.rtc");
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_9_10000x791022_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "rcrack.exe");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "alglib1.dll");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_0_10000x789935_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_1_10000x791425_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_2_10000x790991_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_3_10000x792120_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_4_10000x790743_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_5_10000x790568_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_6_10000x791458_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_7_10000x791707_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_8_10000x790202_0.rtc");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_9_10000x791022_0.rtc");
 
       string rcdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\rcrack.exe";
 
@@ -213,13 +215,13 @@ namespace OSAC
     {
       statuslbl.Content = "Converting File...";
 
-      Extract("Audible_DRM_Cracker", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
+      Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffmpeg.exe");
 
       string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffmpeg.exe";
       string arg = @"-y -activation_bytes ";
       string arg1 = @" -i ";
       string arg2 = @" -ab ";
-      string arg3 = @"k -vn ";
+      string arg3 = @"k -map_metadata 0 -id3v2_version 3 -vn ";
       string fileout = Path.Combine(outputdisplay.Text, Path.GetFileNameWithoutExtension(inputdisplay.Text) + GetOutExtension());
       string arguments =  arg + abytes + arg1 + inputdisplay.Text + arg2 + qlabel.Content + arg3 + fileout;
 

@@ -8,28 +8,29 @@
         Title="OSAC " Height="300" Width="550" WindowStartupLocation="CenterScreen" Icon="OSAC.ico" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="24*"/>
             <ColumnDefinition Width="37*"/>
             <ColumnDefinition Width="314*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="inpbutton" Content="Choose .aax" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top" Width="99" Height="23" Click="Button_Click_2" Grid.Column="2"/>
-        <Button x:Name="outpbutton" Content="Set Extract Folder" HorizontalAlignment="Left" Margin="85,38,0,0" VerticalAlignment="Top" Width="99" Height="23" Click="Button_Click_3" IsEnabled="False" Grid.Column="2"/>
-        <TextBox x:Name="inputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="3"/>
-        <TextBox x:Name="outputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" Text="" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="3"/>
-        <Button Content="Info" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click" Grid.Column="2"/>
-        <Button Content="Donate" HorizontalAlignment="Left" Margin="218,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1" Grid.Column="2"/>
-        <Button x:Name="convertbutton" Content="Convert Audible Audio File" HorizontalAlignment="Left" Margin="85,68,0,0" VerticalAlignment="Top" Width="208" Height="50" IsEnabled="False" Click="convertbutton_Click" Grid.Column="2"/>
-        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="79" Margin="10,180,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True" Grid.ColumnSpan="3"/>
-        <ProgressBar x:Name="pbar" HorizontalAlignment="Left" Height="25" Margin="10,150,0,0" VerticalAlignment="Top" Width="513" Grid.ColumnSpan="3"/>
-        <Slider x:Name="qslider" HorizontalAlignment="Left" Margin="185,96,0,0" VerticalAlignment="Top" Width="125" Maximum="320" Minimum="32" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Ticks="32,80,96,128,160,192,256,320" Value="80" Grid.ColumnSpan="3" />
-        <Label x:Name="sqlbl" Content="Set MP3/M4B Quality:" HorizontalAlignment="Left" Margin="185,62,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3"/>
-        <Label x:Name="curqlbl" Content="Current:" HorizontalAlignment="Left" Margin="185,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3"/>
-        <Label x:Name="qlabel" Content="{Binding ElementName=qslider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="7,114,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False" Grid.Column="2"/>
+        <Button x:Name="inpbutton" Content="Choose .aax" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top" Width="99" Height="23" Click="Button_Click_2" Grid.Column="3"/>
+        <Button x:Name="outpbutton" Content="Set Extract Folder" HorizontalAlignment="Left" Margin="85,38,0,0" VerticalAlignment="Top" Width="99" Height="23" Click="Button_Click_3" IsEnabled="False" Grid.Column="3"/>
+        <TextBox x:Name="inputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="4"/>
+        <TextBox x:Name="outputdisplay" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" Text="" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="4"/>
+        <Button Content="Info" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click" Grid.Column="3"/>
+        <Button Content="Donate" HorizontalAlignment="Left" Margin="218,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1" Grid.Column="3"/>
+        <Button x:Name="convertbutton" Content="Convert Audible Audio File" HorizontalAlignment="Left" Margin="85,68,0,0" VerticalAlignment="Top" Width="208" Height="50" IsEnabled="False" Click="convertbutton_Click" Grid.Column="3"/>
+        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="79" Margin="10,180,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True" Grid.ColumnSpan="4"/>
+        <ProgressBar x:Name="pbar" HorizontalAlignment="Left" Height="25" Margin="10,150,0,0" VerticalAlignment="Top" Width="513" Grid.ColumnSpan="4"/>
+        <Slider x:Name="qslider" HorizontalAlignment="Left" Margin="16,96,0,0" VerticalAlignment="Top" Width="125" Maximum="320" Minimum="32" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Ticks="32,80,96,128,160,192,256,320" Value="80" Grid.ColumnSpan="3" Grid.Column="1" />
+        <Label x:Name="sqlbl" Content="Set MP3/M4B Quality:" HorizontalAlignment="Left" Margin="16,62,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3" Grid.Column="1"/>
+        <Label x:Name="curqlbl" Content="Current:" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3" Grid.Column="1"/>
+        <Label x:Name="qlabel" Content="{Binding ElementName=qslider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalAlignment="Left" Margin="7,114,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False" Grid.Column="3"/>
         <RadioButton x:Name="rmp3" Content="LAME MP3 AUDIO" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked" Width="143"/>
         <RadioButton x:Name="raac" Content="AAC M4B AUDIOBOOK" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1" Width="143"/>
         <RadioButton x:Name="rflac" Content="FLAC HQ AUDIO" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2" Width="143"/>
-        <Label x:Name="kblbl" Content="kbit/s" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="2"/>
-        <Label Content="Status:" HorizontalAlignment="Left" Margin="85,114,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <Label x:Name="statuslbl" Content="" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="163" Grid.Column="2"/>
+        <Label x:Name="kblbl" Content="kbit/s" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="3"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Margin="85,114,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+        <Label x:Name="statuslbl" Content="" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="163" Grid.Column="3"/>
     </Grid>
 </Window>
