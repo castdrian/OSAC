@@ -269,7 +269,7 @@ namespace OSAC
     private string GetOutExtension()
     {
       if (rmp3.IsChecked.Value) return ".mp3";
-      else if (raac.IsChecked.Value) return ".m4a";
+      else if (raac.IsChecked.Value) return ".m4b";
       else if (rflac.IsChecked.Value) return ".flac";
       else
       {
