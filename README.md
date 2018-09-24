@@ -14,7 +14,7 @@ OSAC's features are as follows:
 
 * Completely removes the files Digital Rights Management (DRM) protection and makes it playable to all common audio players.
 
-* Adjustable quality slider for MP3 and M4B (FLAC get's encoded @ 2600 kbit/s so prepare for huge file sizes).
+* Adjustable quality slider for MP3 and M4B (FLAC gets encoded @ 2600 kbit/s so prepare for huge file sizes).
 
 * Simple and easy to use. 
 
