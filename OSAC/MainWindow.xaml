@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OSAC"
         mc:Ignorable="d"
-        Title="OSAC " Height="300" Width="550" WindowStartupLocation="CenterScreen" Icon="OSAC.ico" ResizeMode="NoResize">
+        Title="OSAC " Height="315" Width="550" WindowStartupLocation="CenterScreen" Icon="OSAC.ico" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="169*"/>
@@ -20,8 +20,8 @@
         <Button Content="Info" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click" Grid.Column="3"/>
         <Button Content="Donate" HorizontalAlignment="Left" Margin="218,38,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1" Grid.Column="3"/>
         <Button x:Name="convertbutton" Content="Convert Audible Audio File" HorizontalAlignment="Left" Margin="85,68,0,0" VerticalAlignment="Top" Width="208" Height="50" IsEnabled="False" Click="convertbutton_Click" Grid.Column="3"/>
-        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="79" Margin="10,180,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True" Grid.ColumnSpan="4"/>
-        <ProgressBar x:Name="pbar" HorizontalAlignment="Left" Height="25" Margin="10,150,0,0" VerticalAlignment="Top" Width="513" Grid.ColumnSpan="4"/>
+        <TextBox x:Name="txtConsole" HorizontalAlignment="Left" Height="79" Margin="10,197,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="513" Background="Black" Foreground="White" AcceptsReturn="True" IsReadOnly="True" Grid.ColumnSpan="4"/>
+        <ProgressBar x:Name="pbar" HorizontalAlignment="Left" Height="25" Margin="10,165,0,0" VerticalAlignment="Top" Width="513" Grid.ColumnSpan="4"/>
         <Slider x:Name="qslider" HorizontalAlignment="Left" Margin="16,96,0,0" VerticalAlignment="Top" Width="125" Maximum="320" Minimum="32" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Ticks="32,80,96,128,160,192,256,320" Value="80" Grid.ColumnSpan="3" Grid.Column="1" />
         <Label x:Name="sqlbl" Content="Set MP3/M4B Quality:" HorizontalAlignment="Left" Margin="16,62,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3" Grid.Column="1"/>
         <Label x:Name="curqlbl" Content="Current:" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="3" Grid.Column="1"/>
@@ -32,5 +32,6 @@
         <Label x:Name="kblbl" Content="kbit/s" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="3"/>
         <Label Content="Status:" HorizontalAlignment="Left" Margin="85,114,0,0" VerticalAlignment="Top" Grid.Column="3"/>
         <Label x:Name="statuslbl" Content="" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="163" Grid.Column="3"/>
+        <CheckBox x:Name="split" Content="Split file by chapters" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="143"/>
     </Grid>
 </Window>
