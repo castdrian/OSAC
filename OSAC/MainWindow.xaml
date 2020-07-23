@@ -32,6 +32,5 @@
         <Label x:Name="kblbl" Content="kbit/s" HorizontalAlignment="Left" Margin="30,114,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="3"/>
         <Label Content="Status:" HorizontalAlignment="Left" Margin="85,114,0,0" VerticalAlignment="Top" Grid.Column="3"/>
         <Label x:Name="statuslbl" Content="" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="163" Grid.Column="3"/>
-        <CheckBox x:Name="split" Content="Split file by chapters" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="143"/>
     </Grid>
 </Window>
