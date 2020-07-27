@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSAC", "OSAC\OSAC.csproj", "{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aax.Activation.ApiClient", "Aax.Activation.ApiClient\Aax.Activation.ApiClient.csproj", "{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +21,6 @@ Global
 		{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}.Release|x64.ActiveCfg = Release|x64
 		{5FA27E60-CE05-449F-A27D-8FFBF0FF5000}.Release|x64.Build.0 = Release|x64
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Debug|x64.Build.0 = Debug|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Release|x64.ActiveCfg = Release|Any CPU
-		{DB64AABD-96C4-43A5-B4F2-68A60D4DE094}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -209,7 +209,7 @@ namespace OSAC
             //    abytes = match.Groups[1].Value;
             //}
 
-            abytes = await AaxActivationClient.ResolveActivationBytes(checksum);
+            abytes = await AaxActivationClient.Instance.ResolveActivationBytes(checksum);
 
             carmdrm();
         }
