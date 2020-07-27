@@ -168,46 +168,6 @@ namespace OSAC
         {
             statuslbl.Content = "Cracking Activation Bytes...";
 
-            //Directory.CreateDirectory(resdir);
-
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "rcrack.exe");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "alglib1.dll");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_0_10000x789935_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_1_10000x791425_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_2_10000x790991_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_3_10000x792120_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_4_10000x790743_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_5_10000x790568_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_6_10000x791458_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_7_10000x791707_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_8_10000x790202_0.rtc");
-            //Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "audible_byte#4-4_9_10000x791022_0.rtc");
-
-            //string rcdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\rcrack.exe";
-
-            //Process rcr = new Process();
-            //rcr.StartInfo.FileName = rcdir;
-            //rcr.StartInfo.Arguments = @". -h " + checksum;
-            //rcr.StartInfo.CreateNoWindow = true;
-            //rcr.StartInfo.RedirectStandardOutput = true;
-            //rcr.StartInfo.UseShellExecute = false;
-            //rcr.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
-            //rcr.Start();
-
-            //string o = rcr.StandardOutput.ReadToEnd();
-            //txtConsole.AppendText(o);
-
-            //await Task.Run(() => rcr.WaitForExit());
-            //txtConsole.ScrollToEnd();
-            //rcr.Close();
-
-            //var regex = new Regex(@"hex:([A-z0-9]+)");
-
-            //Match match = regex.Match(txtConsole.Text);
-            //if (match.Success)
-            //{
-            //    abytes = match.Groups[1].Value;
-            //}
 
             abytes = await AaxActivationClient.Instance.ResolveActivationBytes(checksum);
 
