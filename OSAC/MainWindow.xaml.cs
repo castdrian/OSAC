@@ -134,35 +134,12 @@ namespace OSAC
             dsrb();
             dsslst();
 
-            Directory.CreateDirectory(resdir);
-            Extract("OSAC", AppDomain.CurrentDomain.BaseDirectory + "\\res", "res", "ffprobe.exe");
 
-            string ffdir = AppDomain.CurrentDomain.BaseDirectory + "\\res\\ffprobe.exe";
-            string arg = string.Format("\"{0}\"", inputdisplay.Text);
-
-            Process ffp = new Process();
-            ffp.StartInfo.FileName = ffdir;
-            ffp.StartInfo.Arguments = arg;
-            ffp.StartInfo.CreateNoWindow = true;
-            ffp.StartInfo.RedirectStandardOutput = true;
-            ffp.StartInfo.RedirectStandardError = true;
-            ffp.StartInfo.UseShellExecute = false;
-            ffp.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
-            ffp.Start();
-
-            string r = ffp.StandardError.ReadToEnd();
-            txtConsole.AppendText(r);
-
-            await Task.Run(() => ffp.WaitForExit());
-            txtConsole.ScrollToEnd();
-
-            ffp.Close();
-
-            var regex = new Regex(@"[A-z0-9]{40}");
-            checksum = regex.Match(txtConsole.Text).Value;
-
+            checksum = ActivationByteHashExtractor.GetActivationChecksum(inputdisplay.Text);
             await crackbytes();
         }
+
+
 
         public async Task crackbytes()
         {
