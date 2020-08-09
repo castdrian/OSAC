@@ -74,6 +74,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aax.Activation.ApiClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aax.Activation.ApiClient.1.0.0\lib\netstandard2.0\Aax.Activation.ApiClient.dll</HintPath>
+    </Reference>
     <Reference Include="AutoUpdater.NET, Version=1.4.11.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Autoupdater.NET.Official.1.4.11\lib\net40\AutoUpdater.NET.dll</HintPath>
     </Reference>
@@ -137,25 +140,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="res\audible_byte#4-4_0_10000x789935_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_1_10000x791425_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_2_10000x790991_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_3_10000x792120_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_4_10000x790743_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_5_10000x790568_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_6_10000x791458_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_7_10000x791707_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_8_10000x790202_0.rtc" />
-    <EmbeddedResource Include="res\audible_byte#4-4_9_10000x791022_0.rtc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="res\alglib1.dll" />
     <EmbeddedResource Include="res\ffmpeg.exe" />
     <EmbeddedResource Include="res\ffprobe.exe" />
-    <EmbeddedResource Include="res\rcrack.exe" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="OSAC.ico" />
